@@ -1,7 +1,8 @@
-require("dotenv").config()
+import { config } from 'dotenv';
+import { Client, GatewayIntentBits, MessagePayload } from 'discord.js';
+import axios from "axios"
 
-// Require the necessary discord.js classes
-const { Client, GatewayIntentBits } = require('discord.js');
+config()
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -29,6 +30,11 @@ client.on('interactionCreate', async interaction => {
 
 // Login to Discord with your client's token
 client.login(process.env.BOT_TOKEN);
+// If it uses await use async yes big brain
 async function capy(interaction) {
-	await interaction.reply('hi!')
+	const response = await axios.get("https://api.capy.lol/v1/capybara/", {
+        responseType: 'arraybuffer'
+    })
+	const image = response.data
+	await interaction.reply(new MessagePayload(interaction,{files: [image]}))
 }

@@ -1,8 +1,9 @@
-require("dotenv").config()
+import { config } from 'dotenv';
 
-const { SlashCommandBuilder, Routes } = require('discord.js');
-const { REST } = require('@discordjs/rest');
+import { SlashCommandBuilder, Routes } from 'discord.js';
+import { REST } from '@discordjs/rest';
 
+config()
 
 const commands = [
 	new SlashCommandBuilder().setName('ping').setDescription('HELP im bad'),
